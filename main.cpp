@@ -141,6 +141,8 @@ void UpdateGame() {
   } break;
 
   case GAMEPLAY: {
+    DrawText(TextFormat("Score: %4i", score), WINDOW_WIDTH - 150, 0, 20,
+             RAYWHITE);
     if (isAlive) {
       double currentTime = GetTime();
 
@@ -151,7 +153,12 @@ void UpdateGame() {
       UpdateObstacles();
       UpdatePlayer();
     } else {
-      currentScreen = ENDING;
+      DrawText("Game Over", WINDOW_WIDTH / 2 - 50, WINDOW_HEIGHT / 2, 20,
+               RAYWHITE);
+      if (IsKeyPressed(KEY_R)) {
+        currentScreen = GAMEPLAY;
+        InitGame();
+      }
       break;
     }
   } break;
@@ -162,10 +169,6 @@ void UpdateGame() {
     DrawText(TextFormat("Score: %4i", score), WINDOW_WIDTH / 2 - 220,
              WINDOW_HEIGHT / 2 + 20, 20, RAYWHITE);
 
-    if (IsKeyPressed(KEY_R)) {
-      currentScreen = GAMEPLAY;
-      InitGame();
-    }
   } break;
   }
 }
